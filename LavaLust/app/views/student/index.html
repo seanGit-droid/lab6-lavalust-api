@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f4f6f9; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; text-decoration: none; color: #007bff; font-weight: bold; }
+        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 450px; }
+        .btn { display: inline-block; padding: 8px 16px; background: #28a745; color: white; border-radius: 4px; text-decoration: none; margin-top: 15px; }
+        .btn-danger { background: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="<?= site_url('student'); ?>">Home</a> |
+        <a href="<?= site_url('student/profile'); ?>">Student Profile</a>
+    </div>
+    <div class="card">
+        <h1>Student Home</h1>
+        <p>Welcome to the Student Portal.</p>
+        <p><strong>Middleware Access Status:</strong> 
+            <?= isset($_SESSION['student_access']) && $_SESSION['student_access'] === true 
+                ? '<span style="color:green;">Granted</span>' 
+                : '<span style="color:red;">Denied (Guest)</span>'; ?>
+        </p>
+
+        <?php if (!isset($_SESSION['student_access'])): ?>
+            <a href="<?= site_url('student/login'); ?>" class="btn">Grant Profile Access</a>
+        <?php else: ?>
+            <a href="<?= site_url('student/logout'); ?>" class="btn btn-danger">Revoke Access</a>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
